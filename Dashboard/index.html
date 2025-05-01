@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY PRINT | Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/1234.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <p id="user" style="display: none;"></p>
+    <p id="pos" style="display: none;"></p>
+    <div id="notification-container"></div>
+    <div id="home" class="container active">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2>MY<span class="danger">PRINT </span></h2>
+                </div>
+            </div>
+
+            <div class="slidebar">
+                <a href="#" id="home-link" class="active">
+                    <span class="material-symbols-outlined">dashboard</span>
+                        <h3>Dashboard</h3>
+                </a>
+                <a href="#" id="students-link">
+                    <span class="material-symbols-outlined">group</span>
+                        <h3>Students</h3>
+                </a>
+                <a href="#" id="trans-link">
+                    <span class="material-symbols-outlined">universal_currency_alt</span>
+                        <h3>Student Due</h3>
+                </a>
+                <a href="#" id="close-due-link">
+                    <span class="material-symbols-outlined">universal_currency</span>
+                        <h3>Student Payment</h3>
+                </a>
+                <a href="#" id="history-link">
+                    <span class="material-symbols-outlined">history</span>
+                        <h3>History</h3>
+                </a>
+                <a href="#" id="bulk-link">
+                    <span class="material-symbols-outlined">payments</span>
+                        <h3>Bulk Transaction</h3>
+                </a>
+                <a href="#" id="report-link">
+                    <span class="material-symbols-outlined">description</span>
+                        <h3>Reports</h3>
+                </a>
+            </div>
+        </aside>
+
+        <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+        <main>
+            <div class="right">
+                <div class="top">
+                    <button id="menu-bar">
+                        <span class="material-symbols-outlined" onclick="toggleMenu()">menu</span>
+                    </button>
+                    <a href="#"  id="logout-btn">
+                        <span class="material-symbols-outlined">logout</span>
+                        <h3>Logout</h3>
+                    </a>
+                    <div class="profile">
+                        <div class="info">
+                            <p><b></b></p>
+                            <p class="position"></p>
+                            <small class="text-muted"></small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="/123.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1>Dashboard</h1>
+            <div class="insights">
+                <div class="sales">
+                    <span class="material-symbols-outlined">calendar_clock</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Total Dues</h3>
+                            <h1 id="total-dues">$00.00</h1>
+                        </div>
+                        
+                    </div>
+                    <small>Last 24 hours</small>
+                </div>
+
+                <div class="expense">
+                    <span class="material-symbols-outlined">group</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Total Students</h3>
+                            <h1 id="students-count">0</h1>
+                        </div>
+                    </div>
+                    <small>Last 24 hours</small>
+                </div>
+
+                <div class="income">
+                    <span class="material-symbols-outlined">print</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Print Histories</h3>
+                            <h1 id="history-count">0</h1>
+                        </div>
+                    </div>
+                    <small>Last 24 hours</small>
+                </div>
+
+            </div>
+
+            <div class="recent-orders">
+                <h1>Recent Prints</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>AD No.</th>
+                            <th>Name</th>
+                            <th>Payment</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="trans-table-first-four">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        </div>
+    </div>
+
+
+    <div id="students" class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2>MY<span class="danger">PRINT </span></h2>
+                </div>
+            </div>
+
+            <div class="slidebar">
+                <a href="#"  id="home-link">
+                    <span class="material-symbols-outlined">dashboard</span>
+                        <h3>Dashboard</h3>
+                </a>
+                <a href="#" class="active" id="students-link">
+                    <span class="material-symbols-outlined">group</span>
+                        <h3>Students</h3>
+                </a>
+                <a href="#" id="trans-link">
+                    <span class="material-symbols-outlined">universal_currency_alt</span>
+                        <h3>Student Due</h3>
+                </a>
+                <a href="#" id="close-due-link">
+                    <span class="material-symbols-outlined">universal_currency</span>
+                        <h3>Student Payment</h3>
+                </a>
+                <a href="#" id="history-link">
+                    <span class="material-symbols-outlined">history</span>
+                        <h3>History</h3>
+                </a>
+                <a href="#" id="bulk-link">
+                    <span class="material-symbols-outlined">payments</span>
+                        <h3>Bulk Transaction</h3>
+                </a>
+                <a href="#" id="report-link">
+                    <span class="material-symbols-outlined">description</span>
+                        <h3>Reports</h3>
+                </a>
+            </div>
+        </aside>
+
+        <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+        <main>
+            <div class="right">
+                <div class="top">
+                    <button id="menu-bar">
+                        <span class="material-symbols-outlined" onclick="toggleMenu()">menu</span>
+                    </button>
+                    <a href="#"  id="logout-btn">
+                        <span class="material-symbols-outlined">logout</span>
+                        <h3>Logout</h3>
+                        </a>
+                    <div class="profile">
+                        <div class="info">
+                            <p><b></b></p>
+                            <p class="position"></p>
+                            <small class="text-muted"></small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="/123.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="recent-orders">
+                <h1>Students List</h1>
+                <div class="table-container">
+                    <table style="box-shadow: none;">
+                        <thead>
+                            <tr>
+                                <th>AD No.</th>
+                                <th>Name</th>
+                                <th>Dues</th>
+                                <th>Class</th>
+                            </tr>
+                        </thead>                      
+                    </table>
+                    <div class="scroll-body">
+                        <table style="border-radius: 0;">
+                            <tbody id="students-table-body">
+                                <!-- Your rows go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+            </div>
+        </main>
+        </div>
+    </div>
+
+    <div id="trans" class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2>MY<span class="danger">PRINT </span></h2>
+                </div>
+            </div>
+
+            <div class="slidebar">
+                <a href="#"  id="home-link">
+                    <span class="material-symbols-outlined">dashboard</span>
+                        <h3>Dashboard</h3>
+                </a>
+                <a href="#" id="students-link">
+                    <span class="material-symbols-outlined">group</span>
+                        <h3>Students</h3>
+                </a>
+                <a href="#" class="active" id="trans-link">
+                    <span class="material-symbols-outlined">universal_currency_alt</span>
+                        <h3>Student Due</h3>
+                </a>
+                <a href="#" id="close-due-link">
+                    <span class="material-symbols-outlined">universal_currency</span>
+                        <h3>Student Payment</h3>
+                </a>
+                <a href="#" id="history-link">
+                    <span class="material-symbols-outlined">history</span>
+                        <h3>History</h3>
+                </a>
+                <a href="#" id="bulk-link">
+                    <span class="material-symbols-outlined">payments</span>
+                        <h3>Bulk Transaction</h3>
+                </a>
+                <a href="#" id="report-link">
+                    <span class="material-symbols-outlined">description</span>
+                        <h3>Reports</h3>
+                </a>
+            </div>
+        </aside>
+
+        <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+        <main>
+            <div class="right">
+                <div class="top">
+                    <button id="menu-bar">
+                        <span class="material-symbols-outlined" onclick="toggleMenu()">menu</span>
+                    </button>
+                    <a href="#"  id="logout-btn">
+                        <span class="material-symbols-outlined">logout</span>
+                        <h3>Logout</h3>
+                        </a>
+                    <div class="profile">
+                        <div class="info">
+                            <p><b></b></p>
+                            <p class="position"></p>
+                            <small class="text-muted"></small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="/123.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            <div class="form-container">
+                <h2>Student Due</h2>
+                <form id="form">
+                    <div class="form-group">
+                        <label>AD No.</label>
+                        <input type="number" name="AD No." id="ad-no" required />
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" name="Name" id="name" required readonly tabindex="-1" />
+                    </div>                      
+                
+                    <div class="form-group">
+                        <label>Money</label>
+                        <input type="number" name="Money" required />
+                    </div>
+                
+                    <div class="btn">
+                        <button type="submit" class="submit-btn" id="submit-button">Add Transaction</button>
+                        <button type="button" class="cancel-btn" id="cancel-button">Cancel</button>
+                    </div>
+                </form>                
+                
+                <div id="message" style="display: none; margin: 20px; font-weight: bold; padding: 8px; background-color: beige; border-radius: 4px;">
+                </div>
+                </div>                  
+            </div>
+
+            
+        </main>
+    </div>
+
+    <div id="close-due" class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2>MY<span class="danger">PRINT </span></h2>
+                </div>
+            </div>
+
+            <div class="slidebar">
+                <a href="#"  id="home-link">
+                    <span class="material-symbols-outlined">dashboard</span>
+                        <h3>Dashboard</h3>
+                </a>
+                <a href="#" id="students-link">
+                    <span class="material-symbols-outlined">group</span>
+                        <h3>Students</h3>
+                </a>
+                <a href="#" id="trans-link">
+                    <span class="material-symbols-outlined">universal_currency_alt</span>
+                        <h3>Student Due</h3>
+                </a>
+                <a href="#" class="active" id="close-due-link">
+                    <span class="material-symbols-outlined">universal_currency</span>
+                        <h3>Student Payment</h3>
+                </a>
+                <a href="#" id="history-link">
+                    <span class="material-symbols-outlined">history</span>
+                        <h3>History</h3>
+                </a>
+                <a href="#" id="bulk-link">
+                    <span class="material-symbols-outlined">payments</span>
+                        <h3>Bulk Transaction</h3>
+                </a>
+                <a href="#" id="report-link">
+                    <span class="material-symbols-outlined">description</span>
+                        <h3>Reports</h3>
+                </a>
+            </div>
+        </aside>
+
+        <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+        <main>
+            <div class="right">
+                <div class="top">
+                    <button id="menu-bar">
+                        <span class="material-symbols-outlined" onclick="toggleMenu()">menu</span>
+                    </button>
+                    <a href="#"  id="logout-btn">
+                        <span class="material-symbols-outlined">logout</span>
+                        <h3>Logout</h3>
+                    </a>
+                    <div class="profile">
+                        <div class="info">
+                            <p><b></b></p>
+                            <p class="position"></p>
+                            <small class="text-muted"></small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="/123.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            <div class="form-container">
+                <h2>Student Payment</h2>
+                <form id="form-payment">
+                    <div class="form-group">
+                        <label>AD No.</label>
+                        <input type="number" name="AD No." id="p-ad-no" required />
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" name="Name" id="p-name" required readonly tabindex="-1" />
+                    </div>                      
+                
+                    <div class="form-group">
+                        <label>Money</label>
+                        <input type="number" name="Money" required />
+                    </div>
+                
+                    <div class="btn">
+                        <button type="submit" class="submit-btn" id="p-submit-button">Add Payment</button>
+                        <button type="button" class="cancel-btn" id="p-cancel-button">Cancel</button>
+                    </div>
+                </form>                
+                
+                <div id="p-message" style="display: none; margin: 20px; font-weight: bold; padding: 8px; background-color: beige; border-radius: 4px;">
+                </div>
+                </div>                  
+            </div>
+
+            
+        </main>
+    </div>
+
+
+    <div id="history" class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2>MY<span class="danger">PRINT </span></h2>
+                </div>
+            </div>
+
+            <div class="slidebar">
+                <a href="#"  id="home-link">
+                    <span class="material-symbols-outlined">dashboard</span>
+                        <h3>Dashboard</h3>
+                </a>
+                <a href="#" id="students-link">
+                    <span class="material-symbols-outlined">group</span>
+                        <h3>Students</h3>
+                </a>
+                <a href="#" id="trans-link">
+                    <span class="material-symbols-outlined">universal_currency_alt</span>
+                        <h3>Student Due</h3>
+                </a>
+                <a href="#" id="close-due-link">
+                    <span class="material-symbols-outlined">universal_currency</span>
+                        <h3>Student Payment</h3>
+                </a>
+                <a href="#" class="active" id="history-link">
+                    <span class="material-symbols-outlined">history</span>
+                        <h3>History</h3>
+                </a>
+                <a href="#" id="bulk-link">
+                    <span class="material-symbols-outlined">payments</span>
+                        <h3>Bulk Transaction</h3>
+                </a>
+                <a href="#" id="report-link">
+                    <span class="material-symbols-outlined">description</span>
+                        <h3>Reports</h3>
+                </a>
+            </div>
+        </aside>
+
+        <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+        <main>
+            <div class="right">
+                <div class="top">
+                    <button id="menu-bar">
+                        <span class="material-symbols-outlined" onclick="toggleMenu()">menu</span>
+                    </button>
+                    <a href="#"  id="logout-btn">
+                        <span class="material-symbols-outlined">logout</span>
+                        <h3>Logout</h3>
+                    </a>
+                    <div class="profile">
+                        <div class="info">
+                            <p><b></b></p>
+                            <p class="position"></p>
+                            <small class="text-muted"></small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="/123.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="recent-orders">
+                <h1>History</h1>
+                <div class="bulk" style="justify-content: start;">
+                    <input type="text" id="search-adno" placeholder="Search AD No..." oninput="filterByAdNo()">
+                    <select name="class" id="slct-type" onchange="filterByPaymentType()">
+                        <option value="all">All</option>
+                        <option value="-">Due</option>
+                        <option value="+">Payment</option>
+                    </select>
+                </div>
+                <div class="table-container">
+                    <table style="box-shadow: none;">
+                        <thead>
+                            <tr>
+                                <th>AD No.</th>
+                                <th>Name</th>
+                                <th>Payment</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>                      
+                    </table>
+                    <div class="scroll-body">
+                        <table style="border-radius: 0;">
+                            <tbody id="trans-table-body">
+                                <!-- Your rows go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+            </div>
+        </main>
+        </div>
+    </div>
+
+    <div id="bulk" class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2>MY<span class="danger">PRINT </span></h2>
+                </div>
+            </div>
+
+            <div class="slidebar">
+                <a href="#"  id="home-link">
+                    <span class="material-symbols-outlined">dashboard</span>
+                        <h3>Dashboard</h3>
+                </a>
+                <a href="#" id="students-link">
+                    <span class="material-symbols-outlined">group</span>
+                        <h3>Students</h3>
+                </a>
+                <a href="#" id="trans-link">
+                    <span class="material-symbols-outlined">universal_currency_alt</span>
+                        <h3>Student Due</h3>
+                </a>
+                <a href="#" id="close-due-link">
+                    <span class="material-symbols-outlined">universal_currency</span>
+                        <h3>Student Payment</h3>
+                </a>
+                <a href="#" id="history-link">
+                    <span class="material-symbols-outlined">history</span>
+                        <h3>History</h3>
+                </a>
+                <a href="#" class="active" id="bulk-link">
+                    <span class="material-symbols-outlined">payments</span>
+                        <h3>Bulk Transaction</h3>
+                </a>
+                <a href="#" id="report-link">
+                    <span class="material-symbols-outlined">description</span>
+                        <h3>Reports</h3>
+                </a>
+            </div>
+        </aside>
+
+        <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+        <main>
+            <div class="right">
+                <div class="top">
+                    <button id="menu-bar">
+                        <span class="material-symbols-outlined" onclick="toggleMenu()">menu</span>
+                    </button>
+                    <a href="#"  id="logout-btn">
+                        <span class="material-symbols-outlined">logout</span>
+                        <h3>Logout</h3>
+                    </a>
+                    <div class="profile">
+                        <div class="info">
+                            <p><b></b></p>
+                            <p class="position"></p>
+                            <small class="text-muted"></small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="/123.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="recent-orders">
+                <h1>Bulk Transaction</h1>
+                <div class="bulk">
+                    <label for="Payment">Payment</label>
+                    <input type="number" id="bulkInput">
+                    <select name="class" id="slct-clAs">
+                        <option value="" disabled selected>Select a Class...</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                        <option value="S4">S4</option>
+                        <option value="S5">S5</option>
+                        <option value="SS1">SS1</option>
+                        <option value="SS2">SS2</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="D3">D3</option>
+                    </select>
+                    <button id="bulk-submit">Submit Bulk Payment</button>                 
+                </div>
+                <div class="table-container">
+                    <table style="box-shadow: none;">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all"></th>
+                                <th>AD No.</th>
+                                <th>Name</th>
+                                <th>Dues</th>
+                                <th>Class</th>
+                            </tr>
+                        </thead>                      
+                    </table>
+                    <div class="scroll-body">
+                        <table style="border-radius: 0;">
+                            <tbody id="bulk-table-body">
+                                <!-- Your rows go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                
+            </div>
+        </main>
+        </div>
+    </div>
+
+    <div id="report" class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2>MY<span class="danger">PRINT </span></h2>
+                </div>
+            </div>
+
+            <div class="slidebar">
+                <a href="#"  id="home-link">
+                    <span class="material-symbols-outlined">dashboard</span>
+                        <h3>Dashboard</h3>
+                </a>
+                <a href="#" id="students-link">
+                    <span class="material-symbols-outlined">group</span>
+                        <h3>Students</h3>
+                </a>
+                <a href="#" id="trans-link">
+                    <span class="material-symbols-outlined">universal_currency_alt</span>
+                        <h3>Student Due</h3>
+                </a>
+                <a href="#" id="close-due-link">
+                    <span class="material-symbols-outlined">universal_currency</span>
+                        <h3>Student Payment</h3>
+                </a>
+                <a href="#" id="history-link">
+                    <span class="material-symbols-outlined">history</span>
+                        <h3>History</h3>
+                </a>
+                <a href="#" id="bulk-link">
+                    <span class="material-symbols-outlined">payments</span>
+                        <h3>Bulk Transaction</h3>
+                </a>
+                <a href="#" class="active" id="report-link">
+                    <span class="material-symbols-outlined">description </span>
+                    <h3>Reports</h3>
+                </a>
+            </div>
+        </aside>
+
+        <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+        <main>
+            <div class="right">
+                <div class="top">
+                    <button id="menu-bar">
+                        <span class="material-symbols-outlined" onclick="toggleMenu()">menu</span>
+                    </button>
+                    <a href="#"  id="logout-btn">
+                        <span class="material-symbols-outlined">logout</span>
+                        <h3>Logout</h3>
+                    </a>
+                    <div class="profile">
+                        <div class="info">
+                            <p><b></b></p>
+                            <p class="position"></p>
+                            <small class="text-muted"></small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="/123.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="recent-orders">
+                <h1>Reports</h1>
+                <div class="bulk">
+                    <select name="class" id="slct-clas">
+                        <option value="" disabled selected>Select a Class...</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                        <option value="S4">S4</option>
+                        <option value="S5">S5</option>
+                        <option value="SS1">SS1</option>
+                        <option value="SS2">SS2</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="D3">D3</option>
+                    </select>                      
+                    <button id="Print">Print</button>                 
+                </div>
+                <div class="table-container">
+                    <table style="box-shadow: none;">
+                        <thead>
+                            <tr>
+                                <th>AD No.</th>
+                                <th>Name</th>
+                                <th>Dues</th>
+                                <th>Class</th>
+                            </tr>
+                        </thead>                      
+                    </table>
+                    <div class="scroll-body">
+                        <table style="border-radius: 0;">
+                            <tbody id="report-table-body">
+                                <!-- Your rows go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+            </div>
+        </main>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
