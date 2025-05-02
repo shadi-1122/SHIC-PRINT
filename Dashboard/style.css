@@ -553,7 +553,12 @@ main .recent-orders a{
     border-radius: 0.5rem;
     font-size: 1rem;
     outline: none;
+    color: var(--clr-info-dark);
     transition: border-color 0.3s;
+  }
+
+  .bulk input::placeholder{
+    color: var(--clr-info-dark);
   }
   
   .bulk input:focus,
@@ -577,20 +582,6 @@ main .recent-orders a{
 
 #bulk-submit:hover {
     background-color: #45a049;
-}
-
-#search-adno{
-    padding: 10px 15px;
-    width: 250px;
-    max-width: 100%;
-    font-size: 16px;
-    border: 1px solid var(--clr-info-dark);
-    border-radius: 8px;
-    box-shadow: var(--box-shadow);
-}
-#search-adno:focus{
-    border-color: var(--clr-primary) ;
-    box-shadow: var(--hover-shadow)
 }
 
 #notification-container {
