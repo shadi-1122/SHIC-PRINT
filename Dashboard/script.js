@@ -296,10 +296,9 @@ function fetchStudentName(adNo) {
       });
 
       // Set the "Name" input field to the student's name
-      const ad_no = document.getElementById('ad-no').value;
-      if(ad_no>=600){
+
         document.getElementById('name').value = studentName || 'Not Found'; // If not found, show 'Not Found'
-      }
+
     })
     .catch(error => console.error('Error fetching student data:', error));
 }
@@ -434,10 +433,7 @@ function fetchStudentNameP(adNoP) {
       });
 
       // Set the "Name" input field to the student's name
-      const ad_noP = document.getElementById('p-ad-no').value;
-      if(ad_noP>=600){
         document.getElementById('p-name').value = studentNameP || 'Not Found'; // If not found, show 'Not Found'
-      }
     })
     .catch(error => console.error('Error fetching student data:', error));
 }
