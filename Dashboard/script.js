@@ -6,7 +6,7 @@ if (loggedInUser) {
   document.getElementById('pos').textContent = loggedInUser.position;
 
 } else {
-  window.location.href = '/index.html'; 
+  window.location.href = '/'; 
 }
 
 const userText = document.getElementById('user').textContent.trim();
@@ -22,17 +22,23 @@ positionElements.forEach(el => {
   el.textContent = positionText;
 });
 
-document.getElementById('logout-btn').addEventListener('click', () => {
-  localStorage.clear(); 
-  window.location.href = '/'; 
+document.querySelectorAll('.logout-button').forEach(button => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault(); // prevent default <a> link behavior
+    localStorage.clear(); 
+    window.location.href = '/'; 
+  });
 });
+
 
 
 
 const use = "USER"
 
-if(loggedInUser.position == use){
-  document.getElementById('close-due-link').style.display = 'none'
+if (loggedInUser.position === "USER") {
+  document.querySelectorAll('.payment-close-link').forEach(el => {
+    el.style.display = 'none';
+  });
 }
 
 
@@ -194,7 +200,8 @@ document.getElementById('Print').addEventListener('click', () => {
   printWrapper.setAttribute('id', 'print-wrapper');
 
   const title = document.createElement('h2');
-  title.textContent = `Report of - ${selectedClass}`;
+  title.style.fontSize = '18px'
+  title.textContent = `Printing Report of - ${selectedClass}`;
   title.setAttribute('id', 'print-title');
   printWrapper.appendChild(title);
   printWrapper.appendChild(printableTable);
@@ -451,116 +458,258 @@ document.getElementById('p-ad-no').addEventListener('input', function() {
 const sheetName1 = 'HISTORY';
 const url1 = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName1}`;
 
-fetch(url1)
-  .then(response => response.text())
-  .then(data => {
-    const jsonData = JSON.parse(data.substring(47).slice(0, -2));
-    const tableBody = document.getElementById('trans-table-body');
+document.addEventListener("DOMContentLoaded", () => {
+  let allHistoryRows = [];
 
-    let totalPayment = 0;
-    let historyCount = 0;
+  fetch(url1)
+    .then(response => response.text())
+    .then(data => {
+      const jsonData = JSON.parse(data.substring(47).slice(0, -2));
+      const tableBody = document.getElementById('trans-table-body');
 
-    // Helper: Parse Google Sheets Date(...) string
-    function parseGoogleDate(dateString) {
-      const match = /Date\((\d+),(\d+),(\d+),(\d+),(\d+),(\d+)\)/.exec(dateString);
-      if (!match) return dateString;
-      const [, year, month, day, hour, minute, second] = match.map(Number);
-      return new Date(year, month, day, hour, minute, second);
-    }
+      let totalPayment = 0;
+      let historyCount = 0;
 
-    // Format date to readable format
-    function formatDate(date) {
-      const pad = n => String(n).padStart(2, '0');
-      return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ` +
-             `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
-    }
-
-    // General function to get readable date
-    function formatTimeValue(value) {
-      if (typeof value === 'number') {
-        const date = new Date((value - 25569) * 86400 * 1000);
-        return formatDate(date);
-      } else if (typeof value === 'string' && value.startsWith("Date(")) {
-        return formatDate(parseGoogleDate(value));
-      } else {
-        const parsed = new Date(value);
-        return isNaN(parsed.getTime()) ? value : formatDate(parsed);
+      function parseGoogleDate(dateString) {
+        const match = /Date\((\d+),(\d+),(\d+),(\d+),(\d+),(\d+)\)/.exec(dateString);
+        if (!match) return dateString;
+        const [, year, month, day, hour, minute, second] = match.map(Number);
+        return new Date(year, month, day, hour, minute, second);
       }
-    }
 
-    // Main table rows (reverse order)
-    jsonData.table.rows.reverse().forEach(row => {
-      const AdNo = row.c[0]?.v || '';
-      const Name = row.c[1]?.v || '';
-      const payment = row.c[2]?.v || 0;
-      const Time = row.c[3]?.v || '';
-      const formattedTime = formatTimeValue(Time);
-
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${AdNo}</td>
-        <td class="nm">${Name}</td>
-        <td>${payment}</td>
-        <td>${formattedTime}</td>
-      `;
-      tableBody.appendChild(tr);
-
-      totalPayment += parseFloat(payment);
-      historyCount++;
-    });
-
-    // First 4 rows (original order)
-    const tableBodyFirstFour = document.getElementById('trans-table-first-four');
-    jsonData.table.rows.slice(0, 4).forEach(row => {
-      const AdNo = row.c[0]?.v || '';
-      const Name = row.c[1]?.v || '';
-      const payment = row.c[2]?.v || 0;
-      const Time = row.c[3]?.v || '';
-      const formattedTime = formatTimeValue(Time);
-
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${AdNo}</td>
-        <td class="nm">${Name}</td>
-        <td>${payment}</td>
-        <td>${formattedTime}</td>
-      `;
-      tableBodyFirstFour.appendChild(tr);
-    });
-
-    // Totals
-    document.getElementById('total-dues').textContent = `₹${Math.abs(Number(totalPayment) || 0).toFixed(2)}`;
-    document.getElementById('history-count').textContent = historyCount;
-  })
-  .catch(error => console.error('Error fetching data:', error));
-
-// Function to filter by AD No (used in the search input)
-function filterByAdNo() {
-  const searchInput = document.getElementById('search-adno').value.toLowerCase();
-  const selectedType = document.getElementById('slct-type').value; // Get the selected payment type
-  const rows = document.querySelectorAll('#trans-table-body tr');
-  
-  rows.forEach(row => {
-      const adno = row.cells[0].textContent.toLowerCase(); // AD No is assumed to be in the first column
-      const payment = parseFloat(row.cells[2].textContent); // Payment is assumed to be in the third column
-
-      // Check if the row matches both filters
-      const matchesAdNo = adno.includes(searchInput);
-      const matchesPaymentType = (selectedType === '-' && payment < 0) || (selectedType === '+' && payment > 0) || selectedType === 'all' || !selectedType;
-
-      // If both conditions match, show the row, otherwise hide it
-      if (matchesAdNo && matchesPaymentType) {
-          row.style.display = '';
-      } else {
-          row.style.display = 'none';
+      function formatDate(date) {
+        const pad = n => String(n).padStart(2, '0');
+        return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ` +
+              `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
       }
+
+      function formatTimeValue(value) {
+        if (typeof value === 'number') {
+          const date = new Date((value - 25569) * 86400 * 1000);
+          return formatDate(date);
+        } else if (typeof value === 'string' && value.startsWith("Date(")) {
+          return formatDate(parseGoogleDate(value));
+        } else {
+          const parsed = new Date(value);
+          return isNaN(parsed.getTime()) ? value : formatDate(parsed);
+        }
+      }
+
+      jsonData.table.rows.reverse().forEach(row => {
+        const AdNo = row.c[0]?.v || '';
+        const Name = row.c[1]?.v || '';
+        const payment = parseFloat(row.c[2]?.v || 0);
+        const Time = row.c[3]?.v || '';
+        const formattedTime = formatTimeValue(Time);
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${AdNo}</td>
+          <td class="nm">${Name}</td>
+          <td>${payment}</td>
+          <td>${formattedTime}</td>
+        `;
+        allHistoryRows.push({ AdNo, Name, payment, formattedTime, element: tr });
+        tableBody.appendChild(tr);
+
+        totalPayment += payment;
+        historyCount++;
+      });
+
+      const tableBodyFirstFour = document.getElementById('trans-table-first-four');
+      jsonData.table.rows.slice(0, 4).forEach(row => {
+        const AdNo = row.c[0]?.v || '';
+        const Name = row.c[1]?.v || '';
+        const payment = row.c[2]?.v || 0;
+        const Time = row.c[3]?.v || '';
+        const formattedTime = formatTimeValue(Time);
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${AdNo}</td>
+          <td class="nm">${Name}</td>
+          <td>${payment}</td>
+          <td>${formattedTime}</td>
+        `;
+        tableBodyFirstFour.appendChild(tr);
+      });
+
+      document.getElementById('total-dues').textContent = `₹${Math.abs(Number(totalPayment) || 0).toFixed(2)}`;
+      document.getElementById('history-count').textContent = historyCount;
+
+      // Attach event listeners after data is ready
+      document.getElementById('search-adno').addEventListener('input', applyAllFilters);
+      document.getElementById('slct-type').addEventListener('change', applyAllFilters);
+      document.getElementById('fromDate').addEventListener('change', applyAllFilters);
+      document.getElementById('toDate').addEventListener('change', applyAllFilters);
+    })
+    .catch(error => console.error('Error fetching data:', error));
+
+    function applyAllFilters() {
+      const searchAdNo = document.getElementById('search-adno').value.toLowerCase();
+      const selectedType = document.getElementById('slct-type').value;
+      const from = new Date(document.getElementById("fromDate").value);
+      const to = new Date(document.getElementById("toDate").value);
+      const tableBody = document.getElementById('trans-table-body');
+      tableBody.innerHTML = '';
+    
+      function stripTime(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      }
+    
+      const fromDate = stripTime(from);
+      const toDate = stripTime(to);
+    
+      allHistoryRows.forEach(row => {
+        const rowDate = stripTime(parseDateFromString(row.formattedTime));
+        const matchesAdNo = String(row.AdNo).toLowerCase().includes(searchAdNo);
+        const matchesType = selectedType === 'all'
+          || (selectedType === '-' && row.payment < 0)
+          || (selectedType === '+' && row.payment > 0);
+        const matchesDate = (
+          (isNaN(from.getTime()) && isNaN(to.getTime())) ||
+          (!isNaN(from.getTime()) && !isNaN(to.getTime()) && rowDate >= fromDate && rowDate <= toDate)
+        );
+    
+        if (matchesAdNo && matchesType && matchesDate) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.AdNo}</td>
+            <td class="nm">${row.Name}</td>
+            <td>${row.payment}</td>
+            <td>${row.formattedTime}</td>
+          `;
+          tableBody.appendChild(tr);
+        }
+      });
+    }
+    
+
+
+  function parseDateFromString(dateString) {
+    const [day, month, year] = dateString.split(' ')[0].split('/').map(Number);
+    return new Date(year, month - 1, day);
+  }
+});
+
+
+
+
+//Print date to date
+
+document.getElementById('Print-history').addEventListener('click', () => {
+  // Get only the visible (filtered) rows
+  const historyTableBody = document.getElementById('trans-table-body');
+  const tableBodyClone = historyTableBody.cloneNode(true);
+
+  // Create a new printable table
+  const printableTable = document.createElement('table');
+  printableTable.setAttribute('id', 'trans-table-print');
+
+  // Create header manually
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+  const headers = ['AD No.', 'Name', 'Payment', 'Date'];
+
+  headers.forEach(text => {
+    const th = document.createElement('th');
+    th.textContent = text;
+    headerRow.appendChild(th);
   });
-}
 
-// Function to filter by Payment Type (due or payment)
-function filterByPaymentType() {
-  filterByAdNo(); // When payment type changes, we also need to re-filter by AD No.
-}
+  thead.appendChild(headerRow);
+  printableTable.appendChild(thead);
+
+  // Add cloned body
+  const tbody = document.createElement('tbody');
+  tbody.innerHTML = tableBodyClone.innerHTML;
+  printableTable.appendChild(tbody);
+
+  // Create wrapper
+  const printWrapper = document.createElement('div');
+  printWrapper.setAttribute('id', 'print-wrapper-history');
+
+  const title = document.createElement('h2');
+  const fromInput = document.getElementById("fromDate").value;
+  const toInput = document.getElementById("toDate").value;
+  const fromDateText = fromInput ? new Date(fromInput).toLocaleDateString('en-GB').replace(/\//g, '-') : "Start";
+  const toDateText = toInput ? new Date(toInput).toLocaleDateString('en-GB').replace(/\//g, '-') : "End";  
+
+  title.textContent = `Printing Report of ${fromDateText} - ${toDateText}`;
+  title.setAttribute('id', 'print-title');
+  printWrapper.appendChild(title);
+  printWrapper.appendChild(printableTable);
+
+  document.body.appendChild(printWrapper);
+
+  // Add styles
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+
+      #print-wrapper-history, #print-wrapper-history * {
+        visibility: visible !important;
+      }
+
+      #print-wrapper-history {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background: white;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+      }
+
+      #print-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 20px;
+        color: #363949;
+      }
+
+      #trans-table-print {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #363949;
+      }
+
+      #trans-table-print th {
+        background-color: #f3f4f6;
+        color: #111827;
+        font-size: 15px;
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        text-align: center;
+      }
+
+      #trans-table-print td {
+        font-size: 14px;
+        padding: 8px;
+        border: 1px solid #e5e7eb;
+        text-align: center;
+        font-family: monospace;
+      }
+
+      @page {
+        size: A4;
+        margin: 14mm;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Trigger print
+  window.print();
+
+  // Cleanup
+  printWrapper.remove();
+  style.remove();
+});
+
 
 
   const bulkAmountInput = document.getElementById('bulkInput');
@@ -718,4 +867,6 @@ function filterByPaymentType() {
     // Return the notification so you can manually remove it later
     return notification;
   }
+
+
 

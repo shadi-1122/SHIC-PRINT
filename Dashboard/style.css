@@ -20,7 +20,7 @@
     --card-padding: 1.8rem; 
     --padding-1: 1.2rem; 
     --box-shadow: 0 2rem 3rem var(--clr-light);
-    --hover-shadow: 0 0 5px var(--clr-success);
+    --hover-shadow: 0 0 5px var(--clr-primary);
 }
 
 .dark-theme-variables { 
@@ -43,9 +43,31 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--clr-info-dark);
+    background-color: var(--clr-primary);
     border-radius: 10px;
     border: 2px solid var(--clr-white);
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid var(--clr-info-dark);
+    background-color: var(--clr-white);
+    color: #333;
+    appearance: none; /* removes default arrow in some browsers */
+    -webkit-appearance: none; /* Safari/Chrome */
+    -moz-appearance: none; /* Firefox */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 10px);
+    background-position-y: center;
+}
+
+select option {
+    padding: 10px;
+    background-color: var(--clr-white);
+    color: var(--clr-dark);
 }
 
 
@@ -458,7 +480,7 @@ main .recent-orders a{
   }
   
   .form-group input:focus {
-    border-color: var(--clr-success);
+    border-color: var(--clr-primary);
     outline: none;
     box-shadow: var(--hover-shadow);
   }
@@ -505,6 +527,7 @@ main .recent-orders a{
 
   .bulk {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     flex-direction: row;
     gap: 0.75rem;
@@ -518,9 +541,9 @@ main .recent-orders a{
   
   .bulk label {
     font-size: 15px;
-    margin-top: 3px;
     font-weight: 600;
     color: #333;
+    margin-bottom: 1px;
   }
   
   .bulk input,
@@ -535,7 +558,7 @@ main .recent-orders a{
   
   .bulk input:focus,
   .bulk select:focus {
-    border-color: var(--clr-success);
+    border-color: var(--clr-primary);
     box-shadow: var(--hover-shadow);
   }
   #bulk-submit {
@@ -566,7 +589,7 @@ main .recent-orders a{
     box-shadow: var(--box-shadow);
 }
 #search-adno:focus{
-    border-color: var(--clr-success) ;
+    border-color: var(--clr-primary) ;
     box-shadow: var(--hover-shadow)
 }
 
@@ -615,6 +638,22 @@ main .recent-orders a{
   }
 
   #Print{
+    display: flex;
+    background-color: var(--clr-success); /* green */
+    color: var(--clr-white);
+    padding: 0.5rem;
+    width: 8rem;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
+    box-shadow: var(--box-shadow);
+  }
+  #Print-history{
     display: flex;
     background-color: var(--clr-success); /* green */
     color: var(--clr-white);
