@@ -512,6 +512,17 @@ document.addEventListener("DOMContentLoaded", () => {
         historyCount++;
       });
 
+        // Add a final row for total
+        const totalRow = document.createElement('tr');
+        totalRow.style.fontWeight = 'bold';
+        totalRow.innerHTML = `
+          <td colspan="2">Total</td>
+          <td>${totalPayment.toFixed(2)}</td>
+          <td></td>
+        `;
+        tableBody.appendChild(totalRow);
+
+
       const tableBodyFirstFour = document.getElementById('trans-table-first-four');
       jsonData.table.rows.slice(0, 4).forEach(row => {
         const AdNo = row.c[0]?.v || '';
@@ -548,14 +559,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const to = new Date(document.getElementById("toDate").value);
       const tableBody = document.getElementById('trans-table-body');
       tableBody.innerHTML = '';
-    
+
       function stripTime(date) {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate());
       }
-    
+
       const fromDate = stripTime(from);
       const toDate = stripTime(to);
-    
+
+      let filteredRows = [];
+      let filteredTotal = 0;
+
       allHistoryRows.forEach(row => {
         const rowDate = stripTime(parseDateFromString(row.formattedTime));
         const matchesAdNo = String(row.AdNo).toLowerCase().includes(searchAdNo);
@@ -566,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
           (isNaN(from.getTime()) && isNaN(to.getTime())) ||
           (!isNaN(from.getTime()) && !isNaN(to.getTime()) && rowDate >= fromDate && rowDate <= toDate)
         );
-    
+
         if (matchesAdNo && matchesType && matchesDate) {
           const tr = document.createElement('tr');
           tr.innerHTML = `
@@ -575,12 +589,24 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${row.payment}</td>
             <td>${row.formattedTime}</td>
           `;
-          tableBody.appendChild(tr);
+          filteredRows.push(tr);
+          filteredTotal += row.payment;
         }
       });
-    }
-    
 
+      // Insert total row at the top
+      if (filteredRows.length > 0) {
+        const totalRow = document.createElement('tr');
+        totalRow.style.fontWeight = 'bold';
+        totalRow.innerHTML = `
+          <td colspan="2">Total To Pay</td>
+          <td>₹ ${Math.abs(filteredTotal.toFixed(2))}</td>
+          <td></td>
+        `;
+        tableBody.appendChild(totalRow); // Add total first
+        filteredRows.forEach(tr => tableBody.appendChild(tr)); // Then the rest
+      }
+    }
 
   function parseDateFromString(dateString) {
     const [day, month, year] = dateString.split(' ')[0].split('/').map(Number);
@@ -863,6 +889,3 @@ document.getElementById('Print-history').addEventListener('click', () => {
     // Return the notification so you can manually remove it later
     return notification;
   }
-
-
-
