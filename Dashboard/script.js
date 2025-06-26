@@ -599,7 +599,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const totalRow = document.createElement('tr');
         totalRow.style.fontWeight = 'bold';
         totalRow.innerHTML = `
-          <td colspan="2">Total To Pay</td>
+          <td colspan="2">Total</td>
           <td>₹ ${Math.abs(filteredTotal.toFixed(2))}</td>
           <td></td>
         `;
