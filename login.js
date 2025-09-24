@@ -4,7 +4,6 @@ fetch('users.json')
   .then(response => response.json())
   .then(data => {
     users = Array.isArray(data) ? data : [];
-    console.log("Users loaded:", users);
   })
   .catch(error => {
     console.error("Error loading user data:", error);
@@ -31,3 +30,4 @@ document.getElementById('login-form').addEventListener('submit', function (event
     document.getElementById('error-message').textContent = 'Invalid username or password';
   }
 });
+
