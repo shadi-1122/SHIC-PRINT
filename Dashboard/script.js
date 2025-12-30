@@ -889,3 +889,32 @@ document.getElementById('Print-history').addEventListener('click', () => {
     // Return the notification so you can manually remove it later
     return notification;
   }
+
+function toggleMenu() {
+    const aside = document.querySelector('.container.active aside');
+    const overlay = document.querySelector('.container.active .overlay');
+    const container = document.querySelector('.container.active');
+
+    aside.classList.toggle('collapsed');
+    overlay.classList.toggle('active');
+    container.classList.toggle('sidebar-collapsed');
+}
+
+function closeMenu() {
+    const aside = document.querySelector('.container.active aside');
+    const overlay = document.querySelector('.container.active .overlay');
+    const container = document.querySelector('.container.active');
+
+    aside.classList.add('collapsed');
+    overlay.classList.remove('active');
+    container.classList.add('sidebar-collapsed');
+}
+
+/* Auto-close sidebar on small screens */
+window.addEventListener('resize', () => {
+    if (window.innerWidth < 992) {
+        closeMenu();
+    }
+});
+
+
