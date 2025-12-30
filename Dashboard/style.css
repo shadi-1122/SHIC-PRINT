@@ -663,4 +663,47 @@ main .recent-orders a{
   }
 
 
+/* ===== Collapsible Sidebar ===== */
+aside {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 14rem;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+}
+
+aside.collapsed {
+    transform: translateX(-100%);
+}
+
+/* Adjust main layout when sidebar is hidden */
+.container.active {
+    grid-template-columns: 14rem auto;
+}
+
+.container.active.sidebar-collapsed {
+    grid-template-columns: 0 auto;
+}
+
+/* Overlay for all screen sizes */
+.overlay {
+    z-index: 1000;
+}
+
+/* Menu button visible on ALL screens */
+.right .top button {
+    display: inline-flex;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Desktop: sidebar default open */
+@media (min-width: 992px) {
+    .overlay {
+        display: none !important;
+    }
+}
+
 
