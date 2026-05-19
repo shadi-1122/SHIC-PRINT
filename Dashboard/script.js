@@ -917,4 +917,38 @@ window.addEventListener('resize', () => {
     }
 });
 
+function toggleMenu() {
+    const sidebars = document.querySelectorAll("aside");
+    const overlays = document.querySelectorAll(".overlay");
+
+    if (window.innerWidth <= 992) {
+        sidebars.forEach(sidebar => {
+            sidebar.classList.toggle("show");
+        });
+
+        overlays.forEach(overlay => {
+            overlay.classList.toggle("active");
+        });
+    } else {
+        sidebars.forEach(sidebar => {
+            sidebar.classList.toggle("collapsed");
+        });
+    }
+}
+
+function closeMenu() {
+    document.querySelectorAll("aside").forEach(sidebar => {
+        sidebar.classList.remove("show");
+    });
+
+    document.querySelectorAll(".overlay").forEach(overlay => {
+        overlay.classList.remove("active");
+    });
+}
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 992) {
+        closeMenu();
+    }
+});
 
