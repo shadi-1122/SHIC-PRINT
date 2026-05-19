@@ -693,56 +693,69 @@ aside.collapsed + main {
 }
 
 /* =========================
-   MOBILE RESPONSIVE
+   PERFECT RESPONSIVE DESIGN
 ========================= */
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 992px){
+
+    *{
+        max-width: 100%;
+    }
 
     body{
         overflow-x: hidden;
     }
 
     .container.active{
-        display: block;
-        width: 100%;
-        padding: 0;
-        margin: 0;
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
+
+    /* SIDEBAR */
 
     aside{
         position: fixed;
         top: 0;
         left: -100%;
-        width: 250px;
+        width: 260px;
         height: 100vh;
         background: var(--clr-white);
         z-index: 2000;
-        transition: left 0.3s ease;
+        transition: 0.3s ease;
         overflow-y: auto;
+        box-shadow: var(--box-shadow);
     }
 
     aside.show{
         left: 0;
     }
 
+    /* MAIN */
+
     main{
-        width: 100%;
-        padding: 1rem;
-        margin: 0;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
     }
 
     .right{
         width: 100%;
+        margin: 0;
     }
 
     .right .top{
         width: 100%;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 1rem;
     }
 
     .right .top button{
-        display: flex;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
         background: transparent;
         cursor: pointer;
     }
@@ -752,22 +765,122 @@ aside.collapsed + main {
         color: var(--clr-dark);
     }
 
+    .profile{
+        gap: 0.7rem !important;
+    }
+
     .profile .info{
         display: none;
     }
 
+    /* HEADINGS */
+
+    h1{
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    h2{
+        font-size: 1.2rem;
+    }
+
+    /* INSIGHTS */
+
     main .insights{
         grid-template-columns: 1fr;
+        gap: 1rem;
         width: 100%;
     }
 
     main .insights > div{
         width: 100%;
+        margin-top: 0;
+        padding: 1.2rem;
     }
+
+    main .insights > div span{
+        margin-left: 0;
+    }
+
+    main .insights > div .middle{
+        margin-left: 0;
+    }
+
+    main .insights small{
+        margin-left: 0;
+    }
+
+    /* TABLE */
+
+    .recent-orders{
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .table-container{
+        width: 100%;
+        overflow-x: auto;
+        padding: 0;
+        border-radius: 1rem;
+    }
+
+    .table-container::-webkit-scrollbar{
+        height: 6px;
+    }
+
+    table{
+        width: 100%;
+        min-width: 650px;
+        border-collapse: collapse;
+    }
+
+    table th,
+    table td{
+        padding: 0.9rem 0.7rem;
+        white-space: nowrap;
+        font-size: 0.85rem;
+    }
+
+    .scroll-body{
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+    /* FORMS */
+
+    .form-container{
+        width: 100%;
+        max-width: 100%;
+        margin-top: 1rem;
+        padding: 1.2rem;
+        border-radius: 1rem;
+    }
+
+    .form-group input{
+        width: 100%;
+    }
+
+    /* BUTTONS */
+
+    .btn{
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 0.8rem;
+    }
+
+    .submit-btn,
+    .cancel-btn{
+        width: 100%;
+        margin-left: 0;
+    }
+
+    /* BULK SECTION */
 
     .bulk{
         flex-direction: column;
         align-items: stretch;
+        gap: 0.8rem;
+        padding: 1rem;
         width: 100%;
     }
 
@@ -777,77 +890,62 @@ aside.collapsed + main {
         width: 100%;
     }
 
-    #bulk-submit{
-        margin-left: 0;
-        width: 100%;
-    }
-
-    .btn{
-        grid-template-columns: 1fr;
-        width: 100%;
-    }
-
-    .submit-btn,
-    .cancel-btn{
+    #bulk-submit,
+    #Print,
+    #Print-history{
         width: 100%;
         margin-left: 0;
     }
 
-    .form-container{
+    /* NOTIFICATION */
+
+    #notification-container{
+        right: 10px;
+        left: 10px;
+        top: 15px;
+        align-items: stretch;
+    }
+
+    .notification{
         width: 100%;
-        max-width: 100%;
-        padding: 1rem;
+        min-width: auto;
     }
 
-    .table-container{
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    table{
-        min-width: 650px;
-    }
-
-    .scroll-body{
-        overflow-x: auto;
-    }
+    /* OVERLAY */
 
     .overlay.active{
         display: block;
         z-index: 1500;
     }
-
-    h1{
-        font-size: 1.4rem;
-    }
-
-    h2{
-        font-size: 1.2rem;
-    }
 }
 
-/* SMALL MOBILE */
+/* =========================
+   EXTRA SMALL DEVICES
+========================= */
 
 @media screen and (max-width: 576px){
 
     main{
-        padding: 0.7rem;
+        padding: 0.8rem !important;
     }
 
-    .recent-orders{
-        width: 100%;
+    h1{
+        font-size: 1.3rem;
     }
 
-    .bulk{
-        padding: 0.8rem;
+    h2{
+        font-size: 1.1rem;
     }
 
-    .form-container{
-        padding: 0.8rem;
+    table th,
+    table td{
+        padding: 0.75rem 0.6rem;
+        font-size: 0.8rem;
     }
 
-    .notification{
-        width: calc(100% - 20px);
-        right: 10px;
+    .form-container,
+    .bulk,
+    main .insights > div{
+        border-radius: 0.8rem;
     }
 }
