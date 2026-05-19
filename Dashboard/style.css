@@ -693,150 +693,161 @@ aside.collapsed + main {
 }
 
 /* =========================
-   MOBILE SIDEBAR
+   MOBILE RESPONSIVE
 ========================= */
 
 @media screen and (max-width: 992px) {
 
-    .container.active {
-        grid-template-columns: 1fr;
-        width: 100%;
+    body{
+        overflow-x: hidden;
     }
 
-    aside {
+    .container.active{
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    aside{
         position: fixed;
-        left: -100%;
         top: 0;
-        width: 260px;
+        left: -100%;
+        width: 250px;
         height: 100vh;
         background: var(--clr-white);
-        box-shadow: var(--box-shadow);
-        transition: 0.3s ease;
+        z-index: 2000;
+        transition: left 0.3s ease;
+        overflow-y: auto;
     }
 
-    aside.show {
+    aside.show{
         left: 0;
     }
 
-    main {
+    main{
         width: 100%;
         padding: 1rem;
+        margin: 0;
     }
 
-    .overlay.active {
-        display: block;
+    .right{
+        width: 100%;
     }
 
-    .right .top {
+    .right .top{
+        width: 100%;
         justify-content: space-between;
         align-items: center;
     }
 
-    .right .top button {
+    .right .top button{
         display: flex;
         background: transparent;
         cursor: pointer;
     }
 
-    .right .top button span {
+    .right .top button span{
         font-size: 2rem;
         color: var(--clr-dark);
     }
 
-    main .insights {
-        grid-template-columns: 1fr;
+    .profile .info{
+        display: none;
     }
 
-    .bulk {
+    main .insights{
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    main .insights > div{
+        width: 100%;
+    }
+
+    .bulk{
         flex-direction: column;
         align-items: stretch;
+        width: 100%;
     }
 
     .bulk input,
     .bulk select,
-    .bulk button {
+    .bulk button{
         width: 100%;
     }
 
-    #bulk-submit {
+    #bulk-submit{
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .btn{
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .submit-btn,
+    .cancel-btn{
+        width: 100%;
         margin-left: 0;
     }
 
-    .btn {
-        grid-template-columns: 1fr;
+    .form-container{
+        width: 100%;
+        max-width: 100%;
+        padding: 1rem;
     }
 
-    .table-container {
+    .table-container{
+        width: 100%;
         overflow-x: auto;
     }
 
-    table {
-        min-width: 700px;
+    table{
+        min-width: 650px;
     }
 
-    .form-container {
-        width: 100%;
-        padding: 20px;
-    }
-}
-
-/* =========================
-   TABLET
-========================= */
-
-@media screen and (min-width: 993px) and (max-width: 1200px) {
-
-    .container.active {
-        grid-template-columns: 6rem auto;
+    .scroll-body{
+        overflow-x: auto;
     }
 
-    aside .logo h2,
-    aside .slidebar a h3 {
-        display: none;
+    .overlay.active{
+        display: block;
+        z-index: 1500;
     }
 
-    aside .slidebar a {
-        justify-content: center;
-    }
-
-    main .insights {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* =========================
-   SMALL MOBILE
-========================= */
-
-@media screen and (max-width: 576px) {
-
-    h1 {
+    h1{
         font-size: 1.4rem;
     }
 
-    .profile {
-        gap: 0.5rem !important;
-    }
-
-    .profile .info {
-        display: none;
-    }
-
-    .recent-orders h1 {
+    h2{
         font-size: 1.2rem;
-    }
-
-    .bulk {
-        padding: 0.8rem;
-    }
-
-    .form-container {
-        margin-top: 1rem;
-    }
-
-    .notification {
-        min-width: 200px;
     }
 }
 
+/* SMALL MOBILE */
 
+@media screen and (max-width: 576px){
+
+    main{
+        padding: 0.7rem;
+    }
+
+    .recent-orders{
+        width: 100%;
+    }
+
+    .bulk{
+        padding: 0.8rem;
+    }
+
+    .form-container{
+        padding: 0.8rem;
+    }
+
+    .notification{
+        width: calc(100% - 20px);
+        right: 10px;
+    }
+}
