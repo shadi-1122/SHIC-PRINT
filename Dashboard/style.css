@@ -661,6 +661,182 @@ main .recent-orders a{
     transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
     box-shadow: var(--box-shadow);
   }
+    /* =========================
+   RESPONSIVE SIDEBAR
+========================= */
 
+aside {
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+aside.collapsed {
+    width: 80px;
+}
+
+aside.collapsed .logo h2,
+aside.collapsed .slidebar a h3 {
+    display: none;
+}
+
+aside.collapsed .slidebar a {
+    justify-content: center;
+    margin-left: 0;
+}
+
+aside.collapsed .slidebar a span {
+    margin-left: 0 !important;
+}
+
+aside.collapsed + main {
+    width: 100%;
+}
+
+/* =========================
+   MOBILE SIDEBAR
+========================= */
+
+@media screen and (max-width: 992px) {
+
+    .container.active {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    aside {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        width: 260px;
+        height: 100vh;
+        background: var(--clr-white);
+        box-shadow: var(--box-shadow);
+        transition: 0.3s ease;
+    }
+
+    aside.show {
+        left: 0;
+    }
+
+    main {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+
+    .right .top {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .right .top button {
+        display: flex;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .right .top button span {
+        font-size: 2rem;
+        color: var(--clr-dark);
+    }
+
+    main .insights {
+        grid-template-columns: 1fr;
+    }
+
+    .bulk {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bulk input,
+    .bulk select,
+    .bulk button {
+        width: 100%;
+    }
+
+    #bulk-submit {
+        margin-left: 0;
+    }
+
+    .btn {
+        grid-template-columns: 1fr;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 700px;
+    }
+
+    .form-container {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+
+    .container.active {
+        grid-template-columns: 6rem auto;
+    }
+
+    aside .logo h2,
+    aside .slidebar a h3 {
+        display: none;
+    }
+
+    aside .slidebar a {
+        justify-content: center;
+    }
+
+    main .insights {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media screen and (max-width: 576px) {
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .profile {
+        gap: 0.5rem !important;
+    }
+
+    .profile .info {
+        display: none;
+    }
+
+    .recent-orders h1 {
+        font-size: 1.2rem;
+    }
+
+    .bulk {
+        padding: 0.8rem;
+    }
+
+    .form-container {
+        margin-top: 1rem;
+    }
+
+    .notification {
+        min-width: 200px;
+    }
+}
 
 
